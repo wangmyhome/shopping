@@ -13,6 +13,7 @@
 	http://www.springframework.org/schema/tx 
 	http://www.springframework.org/schema/tx/spring-tx.xsd">
 	
+	
 	<!-- 配置连接池: -->
 	<!-- 引入外部属性文件 -->
 	<context:property-placeholder location="classpath:jdbc.properties"/>
@@ -31,22 +32,24 @@
 		<!-- 配置Hibernate的其他的属性 -->
 		<property name="hibernateProperties">
 			<props>
-				<!-- 配置hibernate方言 -->
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-				<!-- 打印sql语句 -->
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.connection.autocommit">false</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 			</props>
 		</property>
+		
 		<!-- 配置Hibernate的映射文件 -->
 		<property name="mappingResources">
-			
+			<list>
+				<value>com/shop/user/pojo/User.hbm.xml</value>
+				
+			</list>
 		</property>
+		
 	</bean>
 	
-	<!-- 事务管理: -->
 	<!-- 事务管理器 -->
 	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"/>
@@ -59,8 +62,26 @@
 	
 	<!-- 首页访问的Action -->
 	<bean id="indexAction" class="com.shop.index.action.IndexAction" scope="prototype">
-		
 	</bean>
 	
+	<!-- 配置验证码Action -->
+	<bean id="checkImgAction" class="com.shop.user.action.CheckImgAction" scope="prototype">
 	
+	</bean>
+	
+	<!-- 用户模块的Action -->
+	<bean id="userAction" class="com.shop.user.action.UserAction" scope="prototype">
+		<!-- 注入Service -->
+		<property name="userService" ref="userService"/>
+	</bean>
+	
+	<!-- Service的配置  ===========================-->
+	<bean id="userService" class="com.shop.user.service.UserService">
+		<property name="userDao" ref="userDao"/>
+	</bean>
+	
+	<!-- Dao的配置  ===========================-->
+	<bean id="userDao" class="com.shop.user.dao.UserDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
 </beans>
