@@ -86,6 +86,11 @@
 		scope="prototype">
 		<property name="productService" ref="productService" />
 	</bean>
+	
+	<!-- 购物车的Action -->
+	<bean id="cartAction" class="com.shop.crut.action.CartAction" scope="prototype">
+		<property name="productService" ref="productService"/>
+	</bean>
 
 	<!-- Service的配置 =========================== -->
 	<bean id="userService" class="com.shop.user.service.UserService">
@@ -99,6 +104,7 @@
 	<bean id="productService" class="com.shop.product.service.ProductService">
 		<property name="productDao" ref="productDao" />
 	</bean>
+	
 
 	<!-- Dao的配置 =========================== -->
 	<bean id="userDao" class="com.shop.user.dao.UserDao">
