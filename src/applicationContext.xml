@@ -45,6 +45,7 @@
 			<list>
 				<value>com/shop/user/pojo/User.hbm.xml</value>
 				<value>com/shop/category/pojo/Category.hbm.xml</value>
+				<value>com/shop/product/pojo/Product.hbm.xml</value>
 			</list>
 		</property>
 		
@@ -63,6 +64,7 @@
 	<!-- 首页访问的Action -->
 	<bean id="indexAction" class="com.shop.index.action.IndexAction" scope="prototype">
 		<property name="categoryService" ref="categoryService"/>
+		<property name="productService" ref="productService"/>
 	</bean>
 	
 	<!-- 配置验证码Action -->
@@ -84,6 +86,10 @@
 		<property name="categoryDao" ref="categoryDao"/>
 	</bean>
 	
+	<bean id="productService" class="com.shop.product.service.ProductService">
+		<property name="productDao" ref="productDao"/>
+	</bean>
+	
 	<!-- Dao的配置  ===========================-->
 	<bean id="userDao" class="com.shop.user.dao.UserDao">
 		<property name="sessionFactory" ref="sessionFactory"/>
@@ -92,4 +98,8 @@
 	<bean id="categoryDao" class="com.shop.category.dao.CategoryDao">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>	
+	
+	<bean id="productDao" class="com.shop.product.dao.ProductDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
 </beans>
