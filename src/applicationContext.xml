@@ -44,7 +44,7 @@
 		<property name="mappingResources">
 			<list>
 				<value>com/shop/user/pojo/User.hbm.xml</value>
-				
+				<value>com/shop/category/pojo/Category.hbm.xml</value>
 			</list>
 		</property>
 		
@@ -62,11 +62,11 @@
 	
 	<!-- 首页访问的Action -->
 	<bean id="indexAction" class="com.shop.index.action.IndexAction" scope="prototype">
+		<property name="categoryService" ref="categoryService"/>
 	</bean>
 	
 	<!-- 配置验证码Action -->
 	<bean id="checkImgAction" class="com.shop.user.action.CheckImgAction" scope="prototype">
-	
 	</bean>
 	
 	<!-- 用户模块的Action -->
@@ -80,8 +80,16 @@
 		<property name="userDao" ref="userDao"/>
 	</bean>
 	
+	<bean id="categoryService" class="com.shop.category.service.CategoryService">
+		<property name="categoryDao" ref="categoryDao"/>
+	</bean>
+	
 	<!-- Dao的配置  ===========================-->
 	<bean id="userDao" class="com.shop.user.dao.UserDao">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
+	
+	<bean id="categoryDao" class="com.shop.category.dao.CategoryDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>	
 </beans>
